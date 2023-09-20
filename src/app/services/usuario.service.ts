@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/Usuario.model';
+import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { mapToCanActivate } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +23,26 @@ export class UsuarioService {
   //Para o READ, teremos 2 métodos
 
   // 1° Buscar todos os registros
-  public getAll(){
+  public getAll(): Observable<Usuario[]>{
     // Retornar a busca de dados na URL da API
-    return this.http.get(this.url);
+    return this.http.get<Usuario[]>(this.url).pipe(
+      map(retorno => retorno),
+      catchError(erro => this.exibirErro(erro))
+
+    );
   }
 
   //2° Busca 1 unico registro
-  public getOne(id: number){
-    return this.http.get(`${this.url}/${id}`);
+  public getOne(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.url}/${id}`).pipe(
+      map(retorno => retorno),
+      catchError(erro => this.exibirErro(erro))
+    );
+  }
+  exibirErro(erro: any){
+    console.log(erro);
+    alert("A operação não pode ser concluida");
+    return EMPTY;
   }
 
 }
