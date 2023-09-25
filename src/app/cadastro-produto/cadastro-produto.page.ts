@@ -9,45 +9,33 @@ import { Produto } from '../models/Produto.model';
 })
 export class CadastroProdutoPage implements OnInit {
 
-  produto: Produto ={
+  produto: Produto = {
     nome: '',
-    descricao:'',
-    validade:'',
-    preco:'',
+    descricao: '',
+    validade: '',
+    preco: '',
   };
-    constructor(private produtoService: ProdutoService ) { }
 
-     ngOnInit() {
-     }
+  constructor(private produtoService: ProdutoService) {}
+
+  ngOnInit() {
+    // Qualquer inicialização ou lógica que você precise executar ao carregar a página.
+  }
+
+  cadastrarProduto() {
+    // Este método será chamado quando você desejar cadastrar o produto.
+    // Você pode usar this.produto para acessar os dados do produto e enviá-los para o serviço.
+    // Por exemplo:
+    
+    this.produtoService.cadastrar(this.produto).subscribe(
+      (resposta) => {
+        // Lida com a resposta do serviço após o cadastro ser concluído com sucesso.
+        console.log('Produto cadastrado com sucesso', resposta);
+      },
+      (erro) => {
+        // Lida com erros que podem ocorrer durante o cadastro.
+        console.error('Erro ao cadastrar produto', erro);
+      }
+    );
+  }
 }
-  // export class CadastroUsuarioPage implements OnInit {
-
-  //   usuario: Usuario = {
-  //     nome:'',
-  //     email:'',
-  //     senha:'',
-  //   };
-  //   confirmaSenha = '';
-
-  //   constructor(private userService: UsuarioService) { }
-
-  //   ngOnInit() {
-  //   }
-
-  //   salvarUsuario(){
-  //     if(this.confirmaSenha.trim() && this.usuario.senha.trim()){
-  //       if(this.confirmaSenha == this.usuario.senha){
-  //         this.userService.salvar(this.usuario).subscribe(retorno =>{
-  //           this.usuario = retorno;
-  //           alert("Sucesso! Usuário: ["+ this.usuario.id + "] foi salvo!");
-  //         });
-  //       }else{
-  //         alert("As senhas não são iguais!");
-  //       }
-
-  //     }else{
-  //       alert("Os campos de senha devem ser preenchidos!")
-  //     }
-
-  //   }
-  // }
