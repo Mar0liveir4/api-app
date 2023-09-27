@@ -13,7 +13,7 @@ export class CadastroProdutoPage implements OnInit {
     nome: '',
     descricao: '',
     validade: '',
-    preco: '',
+    preco: 0,
   };
 
   constructor(private produtoService: ProdutoService) {}
@@ -22,20 +22,28 @@ export class CadastroProdutoPage implements OnInit {
     // Qualquer inicialização ou lógica que você precise executar ao carregar a página.
   }
 
-  cadastrarProduto() {
-    // Este método será chamado quando você desejar cadastrar o produto.
-    // Você pode usar this.produto para acessar os dados do produto e enviá-los para o serviço.
-    // Por exemplo:
-    
-    this.produtoService.cadastrar(this.produto).subscribe(
-      (resposta) => {
-        // Lida com a resposta do serviço após o cadastro ser concluído com sucesso.
-        console.log('Produto cadastrado com sucesso', resposta);
-      },
-      (erro) => {
-        // Lida com erros que podem ocorrer durante o cadastro.
-        console.error('Erro ao cadastrar produto', erro);
-      }
-    );
+
+  salvarProduto(){
+        this.produtoService.salvar(this.produto).subscribe(retorno =>{
+          this.produto = retorno;
+          alert("O produto: ["+ this.produto.id + "] foi adicionado!");
+        });
   }
 }
+
+  // cadastrarProduto() {
+  //   // Este método será chamado quando você desejar cadastrar o produto.
+  //   // Você pode usar this.produto para acessar os dados do produto e enviá-los para o serviço.
+  //   // Por exemplo:
+
+  //   this.produtoService.cadastrar(this.produto).subscribe(
+  //     (resposta) => {
+  //       // Lida com a resposta do serviço após o cadastro ser concluído com sucesso.
+  //       console.log('Produto cadastrado com sucesso', resposta);
+  //     },
+  //     (erro) => {
+  //       // Lida com erros que podem ocorrer durante o cadastro.
+  //       console.error('Erro ao cadastrar produto', erro);
+  //     }
+  //   );
+  // }
